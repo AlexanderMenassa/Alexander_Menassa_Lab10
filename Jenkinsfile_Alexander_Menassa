@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         VIRTUAL_ENV = 'venv' // Name of the virtual environment folder
+        LOCAL_DEPLOY_PATH = 'C:\\Users\\User\\Desktop\\American University of Beirut\\2024-2025\\Fall 2024-2025\\EECE 435L\\Lab10\\Alex_Menassa_L10\\Alexander_Menassa_Lab10\\deploy' // Deployment directory
+        LOCAL_BUILD_PATH = 'C:\\Users\\User\\Desktop\\American University of Beirut\\2024-2025\\Fall 2024-2025\\EECE 435L\\Lab10\\Alex_Menassa_L10\\Alexander_Menassa_Lab10\\build' // Local build path
     }
     stages {
         stage('Setup') {
@@ -58,6 +60,7 @@ pipeline {
                 script {
                     // Deployment logic, e.g., pushing to a remote server
                     echo "Deploying application..."
+                    bat "xcopy /E /I /Y \"${LOCAL_BUILD_PATH}\\*\" \"${LOCAL_DEPLOY_PATH}\\\""
                 }
             }
         }
