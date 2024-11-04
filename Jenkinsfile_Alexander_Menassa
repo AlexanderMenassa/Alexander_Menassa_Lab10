@@ -44,7 +44,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
-                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && safety check"
+                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && safety scan"
                 }
             }
         }
