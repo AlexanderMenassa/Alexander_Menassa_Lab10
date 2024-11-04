@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Activate the virtual environment and run pytest
-                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && pytest"
+                     bat "call ${VIRTUAL_ENV}\\Scripts\\activate && set PYTHONPATH=%WORKSPACE% && pytest"
                 }
             }
         }
