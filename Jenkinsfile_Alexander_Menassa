@@ -1,30 +1,35 @@
 pipeline {
     agent any
     environment {
-        VIRTUAL_ENV = 'venv'
+        VIRTUAL_ENV = 'venv' // Name of the virtual environment folder
     }
     stages {
         stage('Setup') {
             steps {
                 script {
-                    if (!fileExists("${env.WORKSPACE}/${VIRTUAL_ENV}")) {
-                        bat "python -m venv ${VIRTUAL_ENV}"
+                    // Check if the virtual environment already exists
+                    if (!fileExists("${env.WORKSPACE}\\${VIRTUAL_ENV}")) {
+                        // Create the virtual environment using the specified Python executable
+                        bat "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m venv ${VIRTUAL_ENV}"
                     }
-                    bat "source ${VIRTUAL_ENV}/bin/activate && pip install -r requirements.txt"
+                    // Activate the virtual environment and install requirements
+                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && pip install -r requirements.txt"
                 }
             }
         }
         stage('Lint') {
             steps {
                 script {
-                    bat "source ${VIRTUAL_ENV}/bin/activate && flake8 app.py"
+                    // Activate the virtual environment and run flake8
+                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && flake8 app.py"
                 }
             }
         }
         stage('Test') {
             steps {
                 script {
-                    bat "source ${VIRTUAL_ENV}/bin/activate && pytest"
+                    // Activate the virtual environment and run pytest
+                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && pytest"
                 }
             }
         }
@@ -39,6 +44,7 @@ pipeline {
     }
     post {
         always {
+            // Clean up the workspace after the build
             cleanWs()
         }
     }
