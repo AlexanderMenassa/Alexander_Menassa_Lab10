@@ -32,7 +32,8 @@ pipeline {
                      bat "call ${VIRTUAL_ENV}\\Scripts\\activate && set PYTHONPATH=%WORKSPACE% && pytest"
                 }
             }
-        }stage('Coverage') {
+        }
+        stage('Coverage') {
             steps {
                 script {
                     // Activate the virtual environment, run coverage, and generate a report
