@@ -44,10 +44,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
-                    // Activate the virtual environment and run safety
-                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && safety check > safety_report.txt"
-                    // Optionally check the report for vulnerabilities
-                    bat "type safety_report.txt"
+                    bat "call ${VIRTUAL_ENV}\\Scripts\\activate && safety check"
                 }
             }
         }
